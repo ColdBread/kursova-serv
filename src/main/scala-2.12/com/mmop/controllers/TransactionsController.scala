@@ -34,7 +34,7 @@ class TransactionsController @Inject()(
             case Some(srcAccount) =>
               Accounts.byId(destAccountId) match {
                 case Some(destAccount) =>
-                  Transactions.create(srcAccount, destAccount, BigDecimal(amountStr),new Date().getTime) match {
+                  Transactions.create(srcAccount, destAccount, BigDecimal(amountStr),new java.sql.Timestamp(new Date().getTime)) match {
                     case Left(error) => response.badRequest(error)
                     case Right(_) => response.ok("Transaction successful")
                   }

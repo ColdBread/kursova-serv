@@ -39,7 +39,7 @@ class AutomaticTransaction(val fields: Map[String, Any]) extends AbstractModel {
           case Some(srcAccount) =>
             Accounts.byId(destinationAccount) match {
               case Some(destAccount) =>
-                Transactions.create(srcAccount, destAccount, amount,new Date().getTime, Some(this)) match {
+                Transactions.create(srcAccount, destAccount, amount,new java.sql.Timestamp(new Date().getTime), Some(this)) match {
                   case Right(_) =>
                     sql"""UPDATE `AutomaticTransaction` SET timeLastTransaction = NOW(), error = NULL WHERE id = ${id}""".executeUpdate().apply()
                     Right()
