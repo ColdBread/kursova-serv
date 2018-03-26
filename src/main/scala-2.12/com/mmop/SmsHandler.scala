@@ -12,7 +12,7 @@ object SmsHandler {
   def sendSms(phoneNumber: String, message: String) : Unit = {
     using(DB(connection.borrow())) { db =>
       db.localTx { implicit session =>
-        sql"INSERT INTO alexeysavenkov (number, sign, message, wappush) VALUES (${phoneNumber}, 'Msg', ${message},'')".execute().apply()
+        sql"INSERT INTO dimasymonenko (number, sign, message, wappush) VALUES (${phoneNumber}, 'Msg', ${message},'')".execute().apply()
       }
     }
   }
