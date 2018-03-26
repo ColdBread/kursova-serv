@@ -1,6 +1,7 @@
 package com.mmop.db.models
 
 import java.sql.Timestamp
+import java.util.Date
 
 import com.mmop.db.{AbstractModel, MmopDatabase}
 import org.json4s.JObject
