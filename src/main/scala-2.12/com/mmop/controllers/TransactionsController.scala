@@ -1,7 +1,8 @@
 package com.mmop.controllers
 
-import javax.inject.Inject
+import java.util.Date
 
+import javax.inject.Inject
 import com.mmop.db.models.{Accounts, Transactions, User}
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
@@ -33,7 +34,7 @@ class TransactionsController @Inject()(
             case Some(srcAccount) =>
               Accounts.byId(destAccountId) match {
                 case Some(destAccount) =>
-                  Transactions.create(srcAccount, destAccount, BigDecimal(amountStr)) match {
+                  Transactions.create(srcAccount, destAccount, BigDecimal(amountStr),new Date().getTime) match {
                     case Left(error) => response.badRequest(error)
                     case Right(_) => response.ok("Transaction successful")
                   }

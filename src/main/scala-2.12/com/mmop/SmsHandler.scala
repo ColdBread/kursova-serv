@@ -5,7 +5,7 @@ import scalikejdbc._
 object SmsHandler {
 
   // initialize JDBC driver & connection pool
-  Class.forName("com.mysql.jdbc.Driver")
+  Class.forName("com.mysql.cj.jdbc.Driver")
   ConnectionPool.add("turbosms", "jdbc:mysql://94.249.146.189/users", "dimasymonenko", "31121997")
   val connection = ConnectionPool.get("turbosms")
 

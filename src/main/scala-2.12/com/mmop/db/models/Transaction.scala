@@ -22,7 +22,7 @@ class Transaction(val fields: Map[String, Any]) extends AbstractModel {
 
 object Transactions {
 
-  def create(notVerifiedSrcAccount : Account, destAccount : Account, amount : BigDecimal, automaticTransaction: Option[AutomaticTransaction] = None) : Either[String, Unit] = {
+  def create(notVerifiedSrcAccount : Account, destAccount : Account, amount : BigDecimal, timeCommited: Timestamp, automaticTransaction: Option[AutomaticTransaction] = None) : Either[String, Unit] = {
     MmopDatabase.withSession(implicit session => {
 
       // To avoid race condition;
@@ -43,8 +43,8 @@ object Transactions {
               sql"""UPDATE Account SET amount = amount + ${amount} WHERE id = ${destAccount.id};""".execute().apply()
               sql"""UPDATE Account SET amount = amount - ${amount} WHERE id = ${verifiedSrcAccount.id};""".execute().apply()
               sql"""
-                  INSERT INTO `Transaction`(sourceAccount, destinationAccount, amount, automaticTransactionId)
-                  VALUES (${verifiedSrcAccount.id}, ${destAccount.id}, ${amount}, ${automaticTransaction.map(_.id)});
+                  INSERT INTO `Transaction`(sourceAccount, destinationAccount, amount, timeCommited, automaticTransactionId)
+                  VALUES (${verifiedSrcAccount.id}, ${destAccount.id}, ${amount}, ${timeCommited}, ${automaticTransaction.map(_.id)});
                 """.execute().apply()
               sql""" COMMIT """.execute().apply()
 

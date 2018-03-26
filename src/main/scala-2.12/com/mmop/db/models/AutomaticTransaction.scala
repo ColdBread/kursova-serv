@@ -1,11 +1,11 @@
 package com.mmop.db.models
 
 import java.sql.Timestamp
+import java.util.Date
 
 import com.mmop.db.{AbstractModel, MmopDatabase}
 import org.json4s.JObject
 import org.json4s.JsonAST.{JDecimal, JInt, JString}
-import scalikejdbc._
 
 class AutomaticTransaction(val fields: Map[String, Any]) extends AbstractModel {
 
@@ -39,7 +39,7 @@ class AutomaticTransaction(val fields: Map[String, Any]) extends AbstractModel {
           case Some(srcAccount) =>
             Accounts.byId(destinationAccount) match {
               case Some(destAccount) =>
-                Transactions.create(srcAccount, destAccount, amount, Some(this)) match {
+                Transactions.create(srcAccount, destAccount, amount,new Date().getTime, Some(this)) match {
                   case Right(_) =>
                     sql"""UPDATE `AutomaticTransaction` SET timeLastTransaction = NOW(), error = NULL WHERE id = ${id}""".executeUpdate().apply()
                     Right()
