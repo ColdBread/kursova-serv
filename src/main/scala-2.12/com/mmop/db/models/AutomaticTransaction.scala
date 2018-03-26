@@ -6,6 +6,7 @@ import java.util.Date
 import com.mmop.db.{AbstractModel, MmopDatabase}
 import org.json4s.JObject
 import org.json4s.JsonAST.{JDecimal, JInt, JString}
+import scalikejdbc._
 
 class AutomaticTransaction(val fields: Map[String, Any]) extends AbstractModel {
 
