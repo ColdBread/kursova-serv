@@ -8,7 +8,7 @@ import scalikejdbc._
 
 class User(val fields: Map[String, Any]) extends AbstractModel {
 
-  def id = getField[Long]("id")
+  def id = getField[Int]("id")
   def phoneNumber = getField[String]("phone")
   def smsCodeOpt = getFieldOption[String]("smsLoginCode")
   def smsCode = getField[String]("smsLoginCode")

@@ -7,7 +7,7 @@ import scalikejdbc._
 
 class Account(val fields: Map[String, Any]) extends AbstractModel {
 
-  def id = getField[Long]("id")
+  def id = getField[Int]("id")
   def userId = getField[Int]("userId")
   def amount : BigDecimal = getFieldDecimal("amount")
   def creditLimit : BigDecimal = getFieldDecimal("creditLimit")

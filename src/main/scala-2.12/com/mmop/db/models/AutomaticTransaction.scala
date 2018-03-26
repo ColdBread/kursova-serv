@@ -9,7 +9,7 @@ import scalikejdbc._
 
 class AutomaticTransaction(val fields: Map[String, Any]) extends AbstractModel {
 
-  def id = getField[Long]("id")
+  def id = getField[Int]("id")
   def sourceAccount = getField[Int]("sourceAccount")
   def destinationAccount = getField[Int]("destinationAccount")
   def amount = getFieldDecimal("amount")
